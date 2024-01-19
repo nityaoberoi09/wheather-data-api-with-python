@@ -3,9 +3,12 @@ import pandas as pd
 
 
 app=Flask(__name__)
+
+stations=pd.read_csv("small data/stations.txt", skiprows=17)
+stations=stations[["STAID", "STANAME                                 "]]
 @app.route("/")
 def home():
-    return render_template("home.html")
+    return render_template("home.html",data=stations.to_html())
 
 @app.route("/api/v1/<station>/<date>")#these two denote that user can enter its value
 def about(station,date):
